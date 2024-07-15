@@ -31,11 +31,9 @@ public class BookController {
                            @RequestParam String description,
                            @RequestParam int yearOfPublishing,
                            @RequestParam int authorId) {
-        int id = -1;
-        if(bookRepository.findAllBooks() == null){
-            id = 1;
-        }
-        else id = bookRepository.findAllBooks().size()+1;
+
+        int id = bookRepository.findAllBooks().stream().mapToInt(Book::id).max().orElse(0) + 1;
+
         Book book = new Book(id, title, description, authorId, yearOfPublishing);
         bookRepository.createBook(book);
         return "redirect:/book/allBooks";

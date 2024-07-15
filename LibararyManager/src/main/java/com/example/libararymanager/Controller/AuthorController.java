@@ -39,11 +39,8 @@ public class AuthorController {
     public String saveAuthor(@RequestParam String name,
                            @RequestParam String surname,
                            @RequestParam String pseudonym) {
-        int id = -1;
-        if(authorRepository.findAllAuthors() == null){
-            id = 1;
-        }
-         else id = authorRepository.findAllAuthors().size()+1;
+
+        int id = authorRepository.findAllAuthors().stream().mapToInt(Author::id).max().orElse(0) + 1;
 
         Author author = new Author(id, name, surname, pseudonym);
         authorRepository.createAuthor(author);
