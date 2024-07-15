@@ -22,7 +22,7 @@
         <a th:if="${book!=null}" th:href="@{/book/{id}(id=${book.id})}"
       class="link-primary"  th:text="Books + ': '  + ${book.title()}"> </a>
     </p>
-</div>
+
 
 <form th:action="@{/author/delete/{id}(id=${author.id})}" method="get">
     <input type="hidden" name="_method" value="delete" />
